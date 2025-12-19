@@ -64,6 +64,7 @@ class SkillSerializer(serializers.ModelSerializer):
         # Platform validation
         if platform == "other" and not custom_platform:
             raise serializers.ValidationError({"custom_platform": "'other' filed required corresponding custom_platform name"})
+        
         # Staus based validation fro difficulty
         if status_values != "completed" and difficulty is not None:
             raise serializers.ValidationError({"difficulty":"you caan add diffculty level after completion"})
@@ -86,7 +87,7 @@ class SkillSerializer(serializers.ModelSerializer):
             raise serializers.ValidationError("Skill already added PLease check your list.")
         return value
     
-    class SkillDailyLogSerializer(serializers.ModelSerializer):
+class SkillDailyLogSerializer(serializers.ModelSerializer):
         """
         Docstring for SkillDailyLogSerializer
         Serialaizer for daily learning logs.
