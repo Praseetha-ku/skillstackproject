@@ -16,7 +16,7 @@ class CategorySerializer(serializers.ModelSerializer):
 
     class Meta:
         model=Category
-        fileds= "__all__"
+        fields= "__all__"
 
 class SkillSerializer(serializers.ModelSerializer):
    

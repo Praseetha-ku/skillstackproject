@@ -1,9 +1,8 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
-// import "../assets/styles/addSkill.css";
-
+import "../assets/styles/addSkill.css";
 function AddSkill() {
-  const [categories, setCategories] = useState([]);
+  const [categories, setCategories] = useState([]); // **array**
   const [form, setForm] = useState({
     name: "",
     category: "",
@@ -19,9 +18,16 @@ function AddSkill() {
   }, []);
 
   const loadCategories = async () => {
-    const res = await axios.get("http://127.0.0.1:8000/api/categories/");
-    console.log(res.data,"...........")
-    setCategories(res.data);
+    try {
+      const res = await axios.get("http://127.0.0.1:8000/api/categories/", {
+        headers: { Authorization: `Token ${token}` },
+      });
+
+      
+      setCategories(res.data.results || []);
+    } catch (err) {
+      console.log("CATEGORY ERROR", err);
+    }
   };
 
   const handleChange = (e) => {
@@ -43,15 +49,19 @@ function AddSkill() {
       <h2>Add New Skill</h2>
 
       <form onSubmit={handleSubmit} className="skill-form">
+        
         <label>Name</label>
         <input name="name" onChange={handleChange} required />
 
         <label>Category</label>
-        <select name="category" onChange={handleChange}>
+        <select name="category" onChange={handleChange} required>
           <option value="">Select</option>
-          {categories.map((c) => (
-            <option key={c.id} value={c.id}>{c.name}</option>
-          ))}
+
+          {categories.length > 0 &&
+            categories.map((c) => (
+              <option key={c.id} value={c.id}>{c.name}</option>
+            ))}
+
         </select>
 
         <label>Platform</label>
@@ -64,7 +74,7 @@ function AddSkill() {
         </select>
 
         <label>Resource Type</label>
-        <select name="resource_type" onChange={handleChange}>
+        <select name="resource_type" onChange={handleChange} required>
           <option value="">Select</option>
           <option value="video">Video</option>
           <option value="course">Course</option>
@@ -73,7 +83,7 @@ function AddSkill() {
         </select>
 
         <label>Learning Type</label>
-        <select name="learning_type" onChange={handleChange}>
+        <select name="learning_type" onChange={handleChange} required>
           <option value="">Select</option>
           <option value="course">Course</option>
           <option value="tutorial">Tutorial</option>
@@ -87,4 +97,3 @@ function AddSkill() {
 }
 
 export default AddSkill;
-

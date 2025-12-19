@@ -12,6 +12,7 @@ from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework.filters import SearchFilter, OrderingFilter
 from rest_framework.decorators import api_view, permission_classes
 from django.db.models import Sum
+from rest_framework.permissions import AllowAny
 
 # Create your views here.
 @api_view(['POST'])
@@ -71,8 +72,10 @@ class CategoryList(ListAPIView):
     all availalabele category listing
     Category add permisiion only have the admin
     """
+    permission_classes = [AllowAny]
     queryset = Category.objects.all()  
     serializer_class = CategorySerializer
+ 
 
 class DailyTrackListCreate(ListCreateAPIView):
     """
