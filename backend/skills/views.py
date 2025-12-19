@@ -182,5 +182,5 @@ def dashboard_summary(request):
         "total_logs": logs.count(),
         "category_breakdown": list(category_data),
         "learning_type_breakdown": list(learning_type_data),
-         "recent_completed": list(recent_completed),
+        "recent_completed": list(recent_completed),
     })
