@@ -4,8 +4,9 @@ from django.contrib.auth import authenticate
 from rest_framework.response import Response
 from rest_framework.authtoken.models import Token
 from rest_framework.generics import ( ListCreateAPIView, RetrieveUpdateDestroyAPIView, ListAPIView)
-from backend.skills.models import Category, Skill, SkillDailyLog
-from backend.skills.serrializers import CategorySerializer, SkillSerializer,SkillDailyLogSerializer
+from django.db import models
+from skills.models import Category, Skill, SkillDailyLog
+from skills.serrializers import CategorySerializer, SkillSerializer, SkillDailyLogSerializer
 from rest_framework.permissions import IsAuthenticated
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework.filters import SearchFilter, OrderingFilter
@@ -14,6 +15,7 @@ from django.db.models import Sum
 
 # Create your views here.
 @api_view(['POST'])
+@permission_classes([])
 def user_login(request):
     """
     Docstring for user_login
@@ -26,9 +28,9 @@ def user_login(request):
     user = authenticate(username=username,password=password)
     if not user:
         return Response({"error":"occur due to Invalid username/password"}, status=400)
-    token = Token.objetcs.get_or_create(user=user)
-    return Response({"token":token.key}, status=200)
+    token, _ = Token.objects.get_or_create(user=user)
 
+    return Response({"token":token.key}, status=200)
 class GoalCreate(ListCreateAPIView):
     """
     Docstring for GoalCreate
@@ -38,7 +40,7 @@ class GoalCreate(ListCreateAPIView):
     """
     serializer_class = SkillSerializer
     permission_classes = [IsAuthenticated]
-    filter_backends =[DjanoFilterBackend, SearchFilter,OrderingFilter]
+    filter_backends =[DjangoFilterBackend, SearchFilter,OrderingFilter]
     filterset_fields = [
         "category",
         "platform",
@@ -72,7 +74,7 @@ class CategoryList(ListAPIView):
     queryset = Category.objects.all()  
     serializer_class = CategorySerializer
 
-class DailyTrackList(ListCreateAPIView):
+class DailyTrackListCreate(ListCreateAPIView):
     """
     Docstring for DailyTrackList
     in this user can daily track their progress based on their skill
@@ -84,7 +86,7 @@ class DailyTrackList(ListCreateAPIView):
     ordering_fields = ["date","hours"]
     def get_queryset(self):
         skill_id =self.kwargs["skill_id"]
-        return SkillDailyLog.objects.filter(skill_id=skill_id, skill_user=self.request.user)
+        return SkillDailyLog.objects.filter(skill_id=skill_id, skill__user=self.request.user)
     def perform_create(self, serializer):
         serializer.save()
 class DailyLogDetailView(RetrieveUpdateDestroyAPIView):
@@ -122,4 +124,63 @@ def user_profile(request):
         "total_skills": skills.count(),
         "completed_skills": skills.filter(status="completed").count(),
         "total_hours": total_hours,
+    })
+@api_view(["GET"])
+@permission_classes([IsAuthenticated])
+def dashboard_summary(request):
+    """
+    Docstring for dashboard_summary
+    Dashboard summary for the logged-in user.
+
+    Includes:
+    - Total skills
+    - Completed / In-progress / Started count
+    - Total learning hours
+    - Total daily logs
+    - Category-wise summary
+    - Learning-type summary
+    - Recently completed items
+    """
+    user = request.user
+
+
+    skills = Skill.objects.filter(user=user)
+
+    # Daily logs
+    logs = SkillDailyLog.objects.filter(skill__user=user)
+
+    # Total hours learned
+    total_hours = logs.aggregate(total=Sum("hours"))["total"] or 0
+
+    # Category breakdown
+    category_data = (
+        skills.values("category__name")
+        .annotate(total=models.Count("id"))
+        .order_by("-total")
+    )
+
+    # Learning type breakdown (course / tutorial / certification)
+    learning_type_data = (
+        skills.values("learning_type")
+        .annotate(total=models.Count("id"))
+        .order_by()
+    )
+
+    # Recently completed (last 5)
+    recent_completed = (
+        skills.filter(status="completed")
+        .order_by("-updated_at")[:5]
+        .values("name", "completed_on", "certificate_url")
+    )
+
+    return Response({
+        "total_skills": skills.count(),
+        "completed_skills": skills.filter(status="completed").count(),
+        "in_progress_skills": skills.filter(status="in_progress").count(),
+        "started_skills": skills.filter(status="started").count(),
+        "total_hours": total_hours,
+        "total_logs": logs.count(),
+        "category_breakdown": list(category_data),
+        "learning_type_breakdown": list(learning_type_data),
+         "recent_completed": list(recent_completed),
     })
