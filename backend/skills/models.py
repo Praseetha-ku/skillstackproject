@@ -1,5 +1,6 @@
 from django.db import models
 from django.db.models import Sum
+from django.contrib.auth.models import User
 
 # Create your models here.
 class Category(models.Model):
@@ -29,6 +30,12 @@ class Skill(models.Model):
         -gerneral note about that skill after the course completed
         """
 
+        LEARNING_CHOICES = [
+              ('course', 'Course'),
+              ('tutorial', 'Tutorial'),
+              ('certification', 'Certification')
+        ]
+
         STATUS_CHOICE = [
             ('started', 'Started'),
             ('in_progress', 'In Progress'),
@@ -38,6 +45,8 @@ class Skill(models.Model):
             ('video', 'Video'),
             ('course', 'Course'),
             ('article', 'Article'),
+            ('exam', 'Exam'),
+            ('mixed', 'Mixed'),
         ]
 
         PLATFORM_CHOICES =[
@@ -51,14 +60,14 @@ class Skill(models.Model):
             (2, 'Medium'),
             (3, 'Hard'),
         ]
-
+        user = models.ForeignKey(User,on_delete=models.CASCADE, related_name='skills')
         name = models.CharField(max_length=150)
         category = models.ForeignKey(Category, on_delete=models.SET_NULL,null=True, related_name='skills')
         platform = models.CharField(max_length=50, choices=PLATFORM_CHOICES)
+        custom_platform = models.CharField(max_length=100, blank=True, help_text="Fill this only if platform is 'Other'")
         resource_type = models.CharField(max_length=50, choices=RESOURCE_CHOICES)
         status = models.CharField(max_length=20, choices=STATUS_CHOICE, default='started')
         difficulty = models.PositiveSmallIntegerField(choices=DIFFICULTY_CHOICES, null=True, blank=True)
-        certification=models.BooleanField(default=False)
         certificate_url = models.URLField(blank=True, null=True)
         completed_on=models.DateField(blank=True, null=True)
         main_point=models.TextField(blank=True)
