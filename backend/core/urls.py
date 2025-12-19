@@ -16,7 +16,17 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+from skills import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('api/login/',views.user_login),
+    path('api/goals/',views.GoalCreate.as_view()),
+    path('api/goals/<int:id>/',views.GoalList.as_view()),
+    path('api/categories/',views.CategoryList.as_view()),
+    path('api/goal/<int:skill_id>/logs',views.DailyTrackListCreate.as_view()),
+    path('api/logs/<int:id>/',views.DailyLogDetailView.as_view()),
+    path('api/profile/',views.user_profile),
+    path('api/dashboard/', views.dashboard_summary),
+
 ]
