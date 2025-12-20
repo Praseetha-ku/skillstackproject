@@ -1,12 +1,13 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import "../assets/styles/skillTable.css";
+import { useParams, useNavigate } from "react-router-dom";
 
 function SkillList() {
   const [skills, setSkills] = useState([]);
   const [nextPage, setNextPage] = useState(null);
   const [prevPage, setPrevPage] = useState(null);
-
+  const navigate = useNavigate();
   const token = localStorage.getItem("token");
 
   const api = axios.create({
@@ -159,12 +160,17 @@ function SkillList() {
                     >
                       Delete
                     </button>
+                    <button onClick={() => navigate(`/skill/${skill.id}`)}>
+  View
+</button>
                   </td>
                 </tr>
               );
             })}
           </tbody>
         </table>
+        
+
       </div>
 
       {/* PAGINATION */}
