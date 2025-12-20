@@ -16,8 +16,14 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+from skills.ai_views import  predict_mastery, recommend_resources, summarize_notes
 from skills import views
-
+from skills.ai_views import (
+    recommend_resources,
+    summarize_notes,
+    predict_mastery,
+    
+)
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/login/',views.user_login),
@@ -29,6 +35,12 @@ urlpatterns = [
     path('api/profile/',views.user_profile),
     path('api/dashboard/', views.dashboard_summary),
     path("api/logs/", views.AllLogsListView.as_view()),
+    path("api/ai/<int:skill_id>/recommend/", recommend_resources, name="ai_recommend_resources"),
+    path("api/ai/<int:skill_id>/summary/", summarize_notes, name="ai_summarize_notes"),
+    path("api/ai/<int:skill_id>/predict/", predict_mastery, name="ai_predict_mastery"),
+  
+   
+
 
 
 ]

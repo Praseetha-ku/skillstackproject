@@ -8,6 +8,7 @@ import SkillList from "./pages/Skills";
 import DailyLogList from "./pages/DailyList";
 import AddDailyLog from "./pages/DailyLogs";
 import Profile from "./pages/Profile";
+import SkillDetail from "./pages/SkillDetail";
 
 
 function App() {
@@ -22,6 +23,8 @@ function App() {
       <Route path="/skills/add/daily" element={<AddDailyLog />} />
       <Route path="/logs" element={<DailyLogList />} />
       <Route path="/profile" element={<Profile />} />
+      <Route path="/skill/:id" element={<SkillDetail />} />
+
 
 
       </Route>
