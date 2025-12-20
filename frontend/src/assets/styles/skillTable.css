@@ -110,3 +110,10 @@
     font-size: 14px;
   }
 }
+.filters {
+  display: flex;
+  gap: 15px;
+  align-items: center;
+  margin-bottom: 20px;
+  flex-wrap: wrap; 
+}
