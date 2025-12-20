@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
-import "../assets/styles/dailylog.css";
+import "../assets/styles/addgoal.css";
 import { useNavigate } from "react-router-dom";
 
 export default function AddDailyLog() {

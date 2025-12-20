@@ -15,10 +15,13 @@ Skillstack is a personal skill-buildingtracker for courses, tutorials, and certi
 -Backend: Django (Django -REST Framework)
 -Database: SQLite
 
+
 ## Scope Note
 
 This appilcation is designed as a Single-user Personal Tracker
 Authentication is intentionally excluded to keep the scope aligned with requirements.
+in this appilcation backend add detail docstring in every file 
+
 
 
 
