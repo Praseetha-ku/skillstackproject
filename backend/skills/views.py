@@ -188,3 +188,9 @@ def dashboard_summary(request):
         "learning_type_breakdown": list(learning_type_data),
         "recent_completed": list(recent_completed),
     })
+class AllLogsListView(ListAPIView):
+    serializer_class = SkillDailyLogSerializer
+    permission_classes = [IsAuthenticated]
+
+    def get_queryset(self):
+        return SkillDailyLog.objects.filter(skill__user=self.request.user)

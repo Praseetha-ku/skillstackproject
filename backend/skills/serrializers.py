@@ -94,6 +94,11 @@ class SkillDailyLogSerializer(serializers.ModelSerializer):
         Serialaizer for daily learning logs.
         record their daily learning datea and notes.
         """
+        skill_name = serializers.CharField(source="skill.name", read_only=True)
         class Meta:
             model = SkillDailyLog
-            fields = "__all__"
+            # fields = "__all__"
+            fields = ["id", "skill", "skill_name", "date", "hours", "note"]
+        # def perform_create(self, serializer):
+        #   skill_id = self.kwargs["skill_id"]
+        #   serializer.save(skill_id=skill_id)

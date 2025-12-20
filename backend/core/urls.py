@@ -24,9 +24,11 @@ urlpatterns = [
     path('api/goals/',views.GoalCreate.as_view()),
     path('api/goals/<int:pk>/',views.GoalList.as_view()),
     path('api/categories/',views.CategoryList.as_view()),
-    path('api/goal/<int:skill_id>/logs',views.DailyTrackListCreate.as_view()),
+    path('api/goal/<int:skill_id>/logs/',views.DailyTrackListCreate.as_view()),
     path('api/logs/<int:pk>/',views.DailyLogDetailView.as_view()),
     path('api/profile/',views.user_profile),
     path('api/dashboard/', views.dashboard_summary),
+    path("api/logs/", views.AllLogsListView.as_view()),
+
 
 ]

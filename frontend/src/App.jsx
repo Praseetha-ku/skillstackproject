@@ -5,6 +5,9 @@ import Dashboard from "./pages/Dasboard";
 import AddSkill from "./pages/AddSkill";
 import SkillList from "./pages/Skills";
 
+import DailyLogList from "./pages/DailyList";
+import AddDailyLog from "./pages/DailyLogs";
+
 
 function App() {
   return (
@@ -15,6 +18,9 @@ function App() {
       <Route path="/dashboard" element={<Dashboard />} />
       <Route path="/skills/add" element={<AddSkill />} />
       <Route path="/skills" element={<SkillList />} />
+      <Route path="/skills/add/daily" element={<AddDailyLog />} />
+      <Route path="/logs" element={<DailyLogList />} />
+
 
       </Route>
       </Routes>

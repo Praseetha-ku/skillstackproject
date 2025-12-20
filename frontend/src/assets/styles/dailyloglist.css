@@ -1,0 +1,81 @@
+.loglist-container {
+  padding: 20px;
+}
+
+.loglist-container h2 {
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.log-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: white;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.log-table th,
+.log-table td {
+  padding: 12px 15px;
+  border-bottom: 1px solid #eee;
+  text-align: left;
+}
+
+.log-table th {
+  background: #f4f6ff;
+  font-weight: 600;
+}
+
+.log-table tr:hover {
+  background: #fafbff;
+}
+
+.delete-btn {
+  background: #ff4d4f;
+  border: none;
+  padding: 7px 12px;
+  border-radius: 5px;
+  color: white;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.delete-btn:hover {
+  background: #e04345;
+}
+
+.pagination {
+  margin-top: 20px;
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+}
+
+.pagination button {
+  padding: 8px 15px;
+  background: #4e6bff;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.pagination button:disabled {
+  background: #aab4ff;
+  cursor: not-allowed;
+}
+/* responsive */
+@media (max-width: 650px) {
+  .log-table th,
+  .log-table td {
+    font-size: 13px;
+    padding: 10px;
+  }
+
+  .delete-btn {
+    padding: 5px 8px;
+    font-size: 12px;
+  }
+}

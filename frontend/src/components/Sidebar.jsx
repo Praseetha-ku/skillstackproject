@@ -19,6 +19,12 @@ function Sidebar() {
         <NavLink to="/skills/add" className="sidebar-link">
           Add Goal
         </NavLink>
+        <NavLink to="/skills/add/daily" className="sidebar-link">
+          Add Daily Goal
+        </NavLink>
+        <NavLink to="/logs" className="sidebar-link">
+          Track daily Goal
+        </NavLink>
 
         <NavLink to="/profile" className="sidebar-link">
           Profile
