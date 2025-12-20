@@ -84,7 +84,7 @@ function Dashboard() {
       <ul className="breakdown-list">
         {data.recent_completed.map((item, i) => (
           <li key={i}>
-            {item.name} — {item.completed_on ?? "No Date"}
+            {item.name} 
           </li>
         ))}
       </ul>
