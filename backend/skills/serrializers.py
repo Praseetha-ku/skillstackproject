@@ -54,12 +54,13 @@ class SkillSerializer(serializers.ModelSerializer):
         validation based on learning status
 
         """
+        instance = getattr(self, "instance", None)
         platform = data.get("platform")
         custom_platform = data.get("custom_platform")
-        status_values = data.get("status")
-        difficulty = data.get("difficulty")
-        main_note = data.get("main_point")
-        certificate_url = data.get("certificate_url")
+        status_values = data.get("status",instance.status if instance else None)
+        difficulty = data.get("difficulty",instance.difficulty if instance else None)
+        main_note = data.get("main_point",instance.main_point if instance else None)
+        certificate_url = data.get("certificate_url",instance.main_point if instance else None)
 
         # Platform validation
         if platform == "other" and not custom_platform:

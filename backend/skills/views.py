@@ -63,6 +63,7 @@ class GoalList(RetrieveUpdateDestroyAPIView):
     """
     serializer_class = SkillSerializer
     permission_classes = [IsAuthenticated]
+    lookup_field = "pk"
     def get_queryset(self):
         return Skill.objects.filter(user=self.request.user)
     
