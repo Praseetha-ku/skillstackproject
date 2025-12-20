@@ -12,6 +12,7 @@ from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework.filters import SearchFilter, OrderingFilter
 from rest_framework.decorators import api_view, permission_classes
 from django.db.models import Sum
+from rest_framework.permissions import AllowAny
 
 # Create your views here.
 @api_view(['POST'])
@@ -62,6 +63,7 @@ class GoalList(RetrieveUpdateDestroyAPIView):
     """
     serializer_class = SkillSerializer
     permission_classes = [IsAuthenticated]
+    lookup_field = "pk"
     def get_queryset(self):
         return Skill.objects.filter(user=self.request.user)
     
@@ -71,8 +73,10 @@ class CategoryList(ListAPIView):
     all availalabele category listing
     Category add permisiion only have the admin
     """
+    permission_classes = [AllowAny]
     queryset = Category.objects.all()  
     serializer_class = CategorySerializer
+ 
 
 class DailyTrackListCreate(ListCreateAPIView):
     """
@@ -182,5 +186,11 @@ def dashboard_summary(request):
         "total_logs": logs.count(),
         "category_breakdown": list(category_data),
         "learning_type_breakdown": list(learning_type_data),
-         "recent_completed": list(recent_completed),
+        "recent_completed": list(recent_completed),
     })
+class AllLogsListView(ListAPIView):
+    serializer_class = SkillDailyLogSerializer
+    permission_classes = [IsAuthenticated]
+
+    def get_queryset(self):
+        return SkillDailyLog.objects.filter(skill__user=self.request.user)
