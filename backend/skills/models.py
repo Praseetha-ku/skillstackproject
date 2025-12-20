@@ -66,6 +66,7 @@ class Skill(models.Model):
         platform = models.CharField(max_length=50, choices=PLATFORM_CHOICES)
         custom_platform = models.CharField(max_length=100, blank=True, help_text="Fill this only if platform is 'Other'")
         resource_type = models.CharField(max_length=50, choices=RESOURCE_CHOICES)
+        learning_type = models.CharField(max_length=50, choices=LEARNING_CHOICES, default="course")
         status = models.CharField(max_length=20, choices=STATUS_CHOICE, default='started')
         difficulty = models.PositiveSmallIntegerField(choices=DIFFICULTY_CHOICES, null=True, blank=True)
         certificate_url = models.URLField(blank=True, null=True)

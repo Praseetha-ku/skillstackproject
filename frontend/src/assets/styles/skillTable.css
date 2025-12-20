@@ -1,0 +1,119 @@
+.skills-container {
+  padding: 20px;
+}
+
+.page-title {
+  text-align: center;
+  font-size: 26px;
+  margin-bottom: 20px;
+  font-weight: bold;
+}
+
+.table-wrapper {
+  overflow-x: auto;
+}
+
+.skills-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: white;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.skills-table th,
+.skills-table td {
+  padding: 12px;
+  border-bottom: 1px solid #ddd;
+  text-align: center;
+}
+
+.skills-table th {
+  background: #222;
+  color: white;
+  font-weight: 600;
+}
+
+.skills-table select,
+.skills-table textarea,
+.skills-table input {
+  width: 100%;
+  padding: 6px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+}
+
+.skills-table textarea {
+  resize: vertical;
+  min-height: 50px;
+}
+
+.action-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+
+.delete-btn {
+  background: #e84141;
+  padding: 6px 12px;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.delete-btn:hover {
+  background: #bb2e2e;
+}
+
+.view-btn {
+  background: #3498db;
+  padding: 6px 12px;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.view-btn:hover {
+  background: #2179b5;
+}
+
+/* pagination */
+.pagination {
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+
+.pagination button {
+  padding: 8px 14px;
+  border-radius: 6px;
+  border: none;
+  background: #222;
+  color: white;
+  cursor: pointer;
+}
+
+.pagination button:disabled {
+  background: #999;
+  cursor: not-allowed;
+}
+
+/* responsive */
+@media (max-width: 768px) {
+  .skills-table th,
+  .skills-table td {
+    padding: 8px;
+    font-size: 14px;
+  }
+}
+.filters {
+  display: flex;
+  gap: 15px;
+  align-items: center;
+  margin-bottom: 20px;
+  flex-wrap: wrap; 
+}

@@ -1,0 +1,102 @@
+
+.dailylog-container {
+  max-width: 500px;
+  margin: 40px auto;
+  background: #ffffff;
+  padding: 25px 30px;
+  border-radius: 12px;
+  box-shadow: 0 2px 15px rgba(0, 0, 0, 0.08);
+}
+
+.dailylog-container h2 {
+  text-align: center;
+  margin-bottom: 20px;
+  font-size: 26px;
+  font-weight: 600;
+  color: #333;
+}
+
+
+.daily-form {
+  display: flex;
+  flex-direction: column;
+  gap: 18px; 
+}
+
+
+.input-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.input-group label {
+  font-weight: 500;
+  margin-bottom: 6px;
+  color: #444;
+}
+
+.daily-form input,
+.daily-form select,
+.daily-form textarea {
+  width: 95%;
+  padding: 10px 12px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 15px;
+  background: #f9f9f9;
+  transition: all 0.2s ease;
+}
+
+.daily-form input:focus,
+.daily-form select:focus,
+.daily-form textarea:focus {
+  border-color: #4a90e2;
+  background: #fff;
+  outline: none;
+  box-shadow: 0 0 5px rgba(74, 144, 226, 0.3);
+}
+
+.daily-form textarea {
+  min-height: 90px;
+  resize: vertical;
+}
+
+
+.submit-btn {
+  margin-top: 10px;
+  padding: 12px;
+  background: #4a90e2;
+  border: none;
+  color: #fff;
+  border-radius: 8px;
+  font-size: 17px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.25s ease-in-out;
+}
+
+.submit-btn:hover {
+  background: #387ad0;
+  transform: translateY(-1px);
+}
+
+.submit-btn:active {
+  transform: translateY(1px);
+}
+
+/* responsive */
+@media (max-width: 600px) {
+  .dailylog-container {
+    width: 90%;
+    padding: 20px;
+  }
+
+  .dailylog-container h2 {
+    font-size: 22px;
+  }
+
+  .submit-btn {
+    font-size: 16px;
+    padding: 10px;
+  }
+}

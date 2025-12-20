@@ -1,0 +1,21 @@
+.layout-container {
+  display: flex;
+  min-height: 100vh;
+  background: #f5f7fa;
+}
+.layout-right {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+.layout-content {
+  padding: 20px;
+  background: #f5f7fa;
+  min-height: calc(100vh - 60px);
+}
+/* responsive */
+@media (max-width: 768px) {
+  .layout-container {
+    flex-direction: column;
+  }
+}
