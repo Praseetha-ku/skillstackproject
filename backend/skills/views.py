@@ -53,7 +53,10 @@ class GoalCreate(ListCreateAPIView):
         "difficulty",
     ]
     search_fields = ["name"]
-    ordering_fields = ["created_at", "updated_at"]
+    ordering_fields = ["created_at", "updated_at", "difficulty",
+        "status",
+        "learning_type",
+        "total_hours", ]
     def get_queryset(self):
         return Skill.objects.filter(user=self.request.user)
     def perform_create(self, serializer):

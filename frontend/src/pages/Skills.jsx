@@ -9,6 +9,10 @@ function SkillList() {
   const [prevPage, setPrevPage] = useState(null);
   const navigate = useNavigate();
   const token = localStorage.getItem("token");
+  const [search, setSearch] = useState("");
+  const [learningType, setLearningType] = useState("");
+  const [status, setStatus] = useState("");
+  const [order, setOrder] = useState("");
 
   const api = axios.create({
     baseURL: "http://127.0.0.1:8000",
@@ -17,11 +21,17 @@ function SkillList() {
 
   useEffect(() => {
     loadSkills("/api/goals/");
-  }, []);
+  }, [search, learningType, status, order]);
 
-  const loadSkills = async (url) => {
+  const loadSkills = async (url = "/api/goals/") => {
     try {
-      const res = await api.get(url);
+        const params = {};
+
+    if (search) params.search = search;
+    if (learningType) params.learning_type = learningType;
+    if (status) params.status = status;
+    if (order) params.ordering = order;
+    const res = await api.get(url, { params });
 
       if (res.data.results) {
         setSkills(res.data.results);
@@ -59,6 +69,66 @@ function SkillList() {
       <h2 className="page-title">Your Skills</h2>
 
       <div className="table-wrapper">
+        <div className="filters">
+
+  {/* SEARCH */}
+  <input
+    type="text"
+    placeholder="Search by name..."
+    value={search}
+    onChange={(e) => {
+      setSearch(e.target.value);
+      loadSkills();
+    }}
+  />
+
+  {/* LEARNING TYPE FILTER */}
+  <select
+    value={learningType}
+    onChange={(e) => {
+      setLearningType(e.target.value);
+      loadSkills();
+    }}
+  >
+    <option value="">All Learning Types</option>
+    <option value="course">Course</option>
+    <option value="tutorial">Tutorial</option>
+    <option value="certification">Certification</option>
+  </select>
+
+  {/* STATUS FILTER */}
+  <select
+    value={status}
+    onChange={(e) => {
+      setStatus(e.target.value);
+      loadSkills();
+    }}
+  >
+    <option value="">All Status</option>
+    <option value="started">Started</option>
+    <option value="in_progress">In Progress</option>
+    <option value="completed">Completed</option>
+  </select>
+
+  {/* SORT ORDER */}
+  <select
+    value={order}
+    onChange={(e) => {
+      setOrder(e.target.value);
+      loadSkills();
+    }}
+  >
+    <option value="">Sort By</option>
+    <option value="created_at">Created (Oldest First)</option>
+    <option value="-created_at">Created (Newest First)</option>
+    <option value="updated_at">Updated (Oldest First)</option>
+    <option value="-updated_at">Updated (Newest First)</option>
+    <option value="difficulty">Difficulty (Low → High)</option>
+    <option value="-difficulty">Difficulty (High → Low)</option>
+  </select>
+
+</div>
+
         <table className="skills-table">
           <thead>
             <tr>
