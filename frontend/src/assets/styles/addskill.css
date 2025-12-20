@@ -1,0 +1,58 @@
+.addskill-container {
+  max-width: 600px;
+  margin: 30px auto;
+  padding: 20px;
+  background: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.addskill-container h2 {
+  text-align: center;
+  margin-bottom: 20px;
+  font-weight: 600;
+}
+
+.skill-form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.skill-form label {
+  font-size: 14px;
+  font-weight: 500;
+  margin-bottom: 4px;
+}
+
+.skill-form input,
+.skill-form select {
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  font-size: 14px;
+}
+
+.skill-form button {
+  background: #4a90e2;
+  color: white;
+  padding: 12px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: 600;
+  margin-top: 10px;
+}
+
+.skill-form button:hover {
+  background: #3b7ac2;
+}
+
+ /* Mobile Responsive */
+@media (max-width: 600px) {
+  .addskill-container {
+    margin: 10px;
+    padding: 15px;
+  }
+}

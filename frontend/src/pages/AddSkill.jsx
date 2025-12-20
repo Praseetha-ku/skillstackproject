@@ -1,102 +1,99 @@
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 import axios from "axios";
-import "../assets/styles/addgoal.css";
-import { useNavigate } from "react-router-dom";
-
-export default function AddDailyLog() {
-  const [skills, setSkills] = useState([]);
+import "../assets/styles/addskill.css";
+function AddSkill() {
+  const [categories, setCategories] = useState([]); // **array**
   const [form, setForm] = useState({
-    skill: "",
-    date: "",
-    hours: "",
-    note: "",
+    name: "",
+    category: "",
+    platform: "",
+    resource_type: "",
+    learning_type: "",
   });
 
   const token = localStorage.getItem("token");
-  const navigate = useNavigate();
-
-  const api = axios.create({
-    baseURL: "http://127.0.0.1:8000",
-    headers: { Authorization: `Token ${token}` }
-  });
 
   useEffect(() => {
-    loadSkills();
+    loadCategories();
   }, []);
 
-  const loadSkills = async () => {
+  const loadCategories = async () => {
     try {
-      const res = await api.get("/api/goals/");
-      setSkills(res.data.results || []);
-    } catch (error) {
-      console.log("Skill loading failed", error);
+      const res = await axios.get("http://127.0.0.1:8000/api/categories/", {
+        headers: { Authorization: `Token ${token}` },
+      });
+
+      // ❗ TAKE ONLY THE ARRAY PART
+      setCategories(res.data.results || []);
+    } catch (err) {
+      console.log("CATEGORY ERROR", err);
     }
+  };
+
+  const handleChange = (e) => {
+    setForm({ ...form, [e.target.name]: e.target.value });
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    try {
-      await api.post(`/api/goal/${form.skill}/logs/`, form);
-      navigate("/skills/add/daily/list");
-    } catch (error) {
-      alert("Log adding failed");
-    }
+    await axios.post("http://127.0.0.1:8000/api/goals/", form, {
+      headers: { Authorization: `Token ${token}` },
+    });
+
+    alert("Skill added!");
   };
 
   return (
-    <div className="dailylog-container">
-      <h2>Add Daily Log</h2>
+    <div className="addskill-container">
+      <h2>Add New Skill</h2>
 
-      <form className="daily-form" onSubmit={handleSubmit}>
-       
-        <div className="input-group">
-          <label>Skill</label>
-          <select
-            name="skill"
-            value={form.skill}
-            onChange={(e) => setForm({ ...form, skill: e.target.value })}
-            required
-          >
-            <option value="">Select</option>
-            {skills.map((s) => (
-              <option key={s.id} value={s.id}>{s.name}</option>
+      <form onSubmit={handleSubmit} className="skill-form">
+        
+        <label>Name</label>
+        <input name="name" onChange={handleChange} required />
+
+        <label>Category</label>
+        <select name="category" onChange={handleChange} required>
+          <option value="">Select</option>
+
+          {categories.length > 0 &&
+            categories.map((c) => (
+              <option key={c.id} value={c.id}>{c.name}</option>
             ))}
-          </select>
-        </div>
 
-        <div className="input-group">
-          <label>Date</label>
-          <input
-            type="date"
-            value={form.date}
-            onChange={(e) => setForm({ ...form, date: e.target.value })}
-            required
-          />
-        </div>
+        </select>
 
-        <div className="input-group">
-          <label>Hours (0.5, 1, 2...)</label>
-          <input
-            type="number"
-            step="0.5"
-            value={form.hours}
-            onChange={(e) => setForm({ ...form, hours: e.target.value })}
-            required
-          />
-        </div>
+        <label>Platform</label>
+        <select name="platform" onChange={handleChange} required>
+          <option value="">Select</option>
+          <option value="udemy">Udemy</option>
+          <option value="youtube">YouTube</option>
+          <option value="coursera">Coursera</option>
+          <option value="other">Other</option>
+        </select>
 
-        <div className="input-group">
-          <label>Note</label>
-          <textarea
-            value={form.note}
-            onChange={(e) => setForm({ ...form, note: e.target.value })}
-            placeholder="Optional note..."
-          />
-        </div>
+        <label>Resource Type</label>
+        <select name="resource_type" onChange={handleChange} required>
+          <option value="">Select</option>
+          <option value="video">Video</option>
+          <option value="course">Course</option>
+          <option value="article">Article</option>
+          <option value="exam">Exam</option>
+        </select>
 
-        <button className="submit-btn">Add Log</button>
+        <label>Learning Type</label>
+        <select name="learning_type" onChange={handleChange} required>
+          <option value="">Select</option>
+          <option value="course">Course</option>
+          <option value="tutorial">Tutorial</option>
+          <option value="certification">Certification</option>
+        </select>
+
+        <button>Add Skill</button>
       </form>
     </div>
   );
 }
+
+export default AddSkill;
