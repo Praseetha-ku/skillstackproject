@@ -37,46 +37,57 @@ This appilcation is designed as a Single-user Personal Tracker
 Authentication is intentionally excluded to keep the scope aligned with requirements.
 in this appilcation backend add detail docstring in every file 
 
-# Project StepUP & Installation
-Clone Repo
+Project Setup & Installation
+1. Clone the Repository
 git clone https://github.com/Praseetha-ku/skillstackproject.git
 cd skillstackproject
-cd backend
 
 Backend Setup (Django)
-Create virtual env
-python -m venv venv
-source venv/bin/activate   # Mac/Linux
-venv\Scripts\activate      # Windows
 
-Install dependencies
+Move to backend folder:
+
+cd backend
+
+1. Create Virtual Environment
+
+Windows
+
+python -m venv venv
+venv\Scripts\activate
+
+
+Mac/Linux
+
+python -m venv venv
+source venv/bin/activate
+
+2. Install Dependencies
 pip install -r requirements.txt
 
-Migrate
+3. Run Migrations
 python manage.py migrate
 
-Create superuser
+4. Create Superuser
 python manage.py createsuperuser
 
-Add .env
-GEMINI_API_KEY=your_api_key
+5. Add .env File
 
-Run server
+Create .env inside backend folder:
+
+GEMINI_API_KEY=your_api_key_here
+
+6. Start Backend Server
 python manage.py runserver
 
-Frontend Setup (React)
+Frontend Setup (React + Vite)
 
-Go to frontend folder:
+Move to frontend:
 
 cd frontend
 
-
-Install required packages:
-
+1. Install Required Packages
 npm install
 npm install axios react-router-dom
 
-
-Run application:
-
+2. Start Frontend
 npm run dev
