@@ -24,6 +24,12 @@ Skillstack is a personal skill-buildingtracker for courses, tutorials, and certi
 -AI-used gemini secretkey and gemini-2.5-flash
 -.env for sercert key
 
+## for login use create super name and password
+
+in my case i used craetesuper name and password
+name :Praseetha
+password :Achu123@
+
 
 ## Scope Note
 
@@ -31,9 +37,46 @@ This appilcation is designed as a Single-user Personal Tracker
 Authentication is intentionally excluded to keep the scope aligned with requirements.
 in this appilcation backend add detail docstring in every file 
 
+# Project StepUP & Installation
+Clone Repo
+git clone https://github.com/Praseetha-ku/skillstackproject.git
+cd skillstackproject
+cd backend
+
+Backend Setup (Django)
+Create virtual env
+python -m venv venv
+source venv/bin/activate   # Mac/Linux
+venv\Scripts\activate      # Windows
+
+Install dependencies
+pip install -r requirements.txt
+
+Migrate
+python manage.py migrate
+
+Create superuser
+python manage.py createsuperuser
+
+Add .env
+GEMINI_API_KEY=your_api_key
+
+Run server
+python manage.py runserver
+
+Frontend Setup (React)
+
+Go to frontend folder:
+
+cd frontend
 
 
+Install required packages:
+
+npm install
+npm install axios react-router-dom
 
 
+Run application:
 
-
+npm run dev
